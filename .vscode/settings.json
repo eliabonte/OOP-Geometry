@@ -3,6 +3,9 @@
         "new": "cpp",
         "future": "cpp",
         "system_error": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "stdexcept": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }

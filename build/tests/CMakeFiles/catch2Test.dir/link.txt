@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/catch2Test.dir/catch2Main.cpp.o CMakeFiles/catch2Test.dir/testGeometry.cpp.o CMakeFiles/catch2Test.dir/__/src/geometry.cpp.o -o catch2Test 

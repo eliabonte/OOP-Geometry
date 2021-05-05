@@ -1,0 +1,6 @@
+/home/elia/Desktop/tpa/OOP-Geometry/build/CMakeFiles/rebuild_cache.dir
+/home/elia/Desktop/tpa/OOP-Geometry/build/CMakeFiles/mainEntry.dir
+/home/elia/Desktop/tpa/OOP-Geometry/build/CMakeFiles/edit_cache.dir
+/home/elia/Desktop/tpa/OOP-Geometry/build/tests/CMakeFiles/rebuild_cache.dir
+/home/elia/Desktop/tpa/OOP-Geometry/build/tests/CMakeFiles/catch2Test.dir
+/home/elia/Desktop/tpa/OOP-Geometry/build/tests/CMakeFiles/edit_cache.dir

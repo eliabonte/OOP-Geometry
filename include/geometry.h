@@ -130,8 +130,7 @@ class PointArray {
         void clear();
 
         /**
-         * Get a pointer to the element at some arbitrary position in the array, where positions
-            start at 0 as with arrays
+         * Get a pointer to the element at some arbitrary position in the array
          * If get is called with an index larger than the array size, 
             there is no Point you can return a pointer to, throw an std::invalid_argument
         */     
