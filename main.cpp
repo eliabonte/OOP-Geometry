@@ -8,7 +8,8 @@ using namespace std;
 
 int main ()
 {
- 
+
+
     Point p1 (11 , 3);
     cout << "p1: " << p1.as_string() << endl;
 
@@ -23,7 +24,6 @@ int main ()
 
     Point p5 (15 , 5);
     cout << "p5: " << p5.as_string() << endl;
-
 
     PointArray pa;
 

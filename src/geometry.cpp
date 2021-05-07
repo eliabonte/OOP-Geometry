@@ -6,7 +6,7 @@
 
 using namespace std;    
 
-Point::Point(int x, int y){
+Point::Point(int x , int y ){
     if(x!=0 && y!=0){
         this->x=x;
         this->y=y;
@@ -138,6 +138,10 @@ void PointArray::remove(int pos){
         this->arr[i]=this->arr[i+1];
     }
     resize(this->length - 1);
+}
+
+int PointArray::get_size(){
+    return this->length;
 }
 
 void PointArray::clear(){

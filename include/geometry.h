@@ -28,7 +28,7 @@ class Point {
          * single constructor that, if called with 0 arguments, initializes a point to the
            origin – (0, 0) – but if called with two arguments x and y, creates a point located at (x, y)
         */
-        Point(int x=0, int y=0);
+        Point(int x = 0, int y = 0);
         
         /**  
          * Get the x coordinate
