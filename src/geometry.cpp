@@ -17,12 +17,12 @@ Point::Point(int x , int y ){
     }
 }
                             
-int Point::get_x(){
+int Point::get_x() const{
     return this->x;
 }
 
 
-int Point::get_y(){
+int Point::get_y() const{
     return this->y;
 }
 
@@ -34,7 +34,7 @@ void Point::set_y(const int y){
     this->y=y;
 }
 
-string Point::as_string(){
+string Point::as_string() const{
     return "("+to_string(this->x)+","+to_string(this->y)+")";
 } 
 
@@ -86,7 +86,7 @@ void PointArray::resize(int n){
     this->length = n;
 }
 
-string PointArray::as_string(){
+string PointArray::as_string() const{
     string pointArray="size: "+to_string(this->length)+" points: ";
     for(int i=0;i<this->length;i++){
         pointArray += (&(this->arr[i]))->as_string();
@@ -96,14 +96,14 @@ string PointArray::as_string(){
     return pointArray;
 }
 
-void PointArray::push_back(Point &p){
+void PointArray::push_back(const Point &p){
     cout<<"DEBUG: pushing back "<<p.as_string()<<endl;
     int old_length = this->length;
     resize(this->length + 1);
     this->arr[old_length] = p;
 }
 
-void PointArray::insert(int pos, Point &p){
+void PointArray::insert(int pos, const Point &p){
     cout<<"DEBUG: inserting "<<p.as_string()<<" into pos "<<pos<<endl;    
     if(pos<0){
         throw invalid_argument("pos is negative! "+to_string(pos));
@@ -140,7 +140,7 @@ void PointArray::remove(int pos){
     resize(this->length - 1);
 }
 
-int PointArray::get_size(){
+int PointArray::get_size() const{
     return this->length;
 }
 
@@ -148,7 +148,7 @@ void PointArray::clear(){
     resize(0);
 }
 
-Point* PointArray::get(int position){
+Point* PointArray::get(const int position){
     if(position<0){
         throw invalid_argument("Position is negative!!");
     }
@@ -158,3 +158,61 @@ Point* PointArray::get(int position){
 
     return & (this->arr[position]);
 }
+
+const Point* PointArray::get(const int position) const{
+    if(position<0){
+        throw invalid_argument("Position is negative!!");
+    }
+    if(position>this->length){
+        throw invalid_argument("Position doesn't correspond to an existing cell!!");
+    }
+
+    return & (this->arr[position]);
+}
+
+/*
+Polygon::Polygon(const Point points [], const int length) {
+
+    if(length < 3){
+        throw invalid_argument("too few points to create a polygon!");
+    }
+
+    arr = new PointArray(points,length);
+
+    this->npolygons += 1;
+}
+
+Polygon::Polygon(const PointArray& iarr){
+    if(iarr.get_size() < 3){
+        throw invalid_argument("too few points to create a polygon!");
+    }
+    this->arr = &iarr;
+    Polygon::npolygons += 1;
+}
+
+Polygon::Polygon(const Polygon &pol){
+    this->arr = new PointArray(*pol.arr);
+    Polygon::npolygons += 1;
+}
+
+
+Polygon::~Polygon(){
+    //aggiungere cose
+    delete [] this->arr;
+    this->npolygons -= 1;
+}
+
+
+int Polygon::getNumPolygons(){
+    return Polygon::npolygons;
+}
+
+int Polygon::getNumSlides() const{
+    this->arr->get_size();
+}
+
+const PointArray* Polygon::getPoints() const{
+    return this->arr;
+}
+
+*/

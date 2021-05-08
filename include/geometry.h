@@ -33,12 +33,12 @@ class Point {
         /**  
          * Get the x coordinate
         */      
-        int get_x();
+        int get_x() const;
 
         /**  
          * Get the y coordinate
         */      
-        int get_y();
+        int get_y() const;
 
         /**  
          * Set the x coordinate
@@ -53,7 +53,7 @@ class Point {
         /** 
          * Return a representation of the Point as a C++ string
         */
-        string as_string();
+        string as_string() const;
 };
 
 /**
@@ -98,19 +98,19 @@ class PointArray {
         /**
          * Return a representation of the PointArray with all its points as a C++ string
         */ 
-        string as_string();
+        string as_string() const;
 
         /**
          * Add a Point to the end of the array
         */
-        void push_back(Point &p);
+        void push_back(const Point &p);
 
         /**
          * Insert a Point at some arbitrary position (subscript) of the array, 
             shifting the elements past position to the right
          * If pos is negative or greater than current size, throw std::invalid_argument exception
         */
-        void insert(int pos, Point &p);
+        void insert(int pos, const Point &p);
 
         /**
          * Remove the Point at some arbitrary position (subscript) of the array, shifting the
@@ -122,7 +122,7 @@ class PointArray {
         /**
          * Get the size of the array
         */
-        int get_size();
+        int get_size() const;
 
         /**
          * Remove everything from the array and sets its size to 0 
@@ -134,10 +134,43 @@ class PointArray {
          * If get is called with an index larger than the array size, 
             there is no Point you can return a pointer to, throw an std::invalid_argument
         */     
-        Point* get(int position);
+        Point* get(const int position);
+
+        /**
+         * Get a pointer const to the element at some arbitrary position in the array
+         * If get is called with an index larger than the array size, 
+            there is no Point you can return a pointer to, throw an std::invalid_argument
+        */
+        const Point* get(const int position) const;
         
 };    
 
+/*
+class Polygon{
+    protected:
+        const PointArray* arr;
+        static unsigned int npolygons;
 
+        Polygon(const Point points [], const int length);    
 
+        Polygon(const PointArray& iarr);
+
+        Polygon(const Polygon &pol);
+    
+    public:
+
+        ~Polygon(); 
+
+        virtual double area() const = 0;
+
+        static int getNumPolygons();
+
+        int getNumSlides() const;
+
+        const PointArray* getPoints() const;
+};
+
+unsigned int Polygon::npolygons = 0;
+
+*/
 #endif // GEOMETRY_H
