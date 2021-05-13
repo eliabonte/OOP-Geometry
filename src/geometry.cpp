@@ -57,13 +57,8 @@ PointArray::PointArray(const Point points[], const int size){
     }      
 }
 
-PointArray::PointArray(const PointArray& pv){
+PointArray::PointArray(const PointArray& pv):PointArray(pv.arr,pv.length){
     cout<<"DEBUG: copy constructor"<<endl;
-    this->length=pv.length;
-    this->arr=new Point[this->length];
-    for(int i=0;i<this->length;i++){
-        this->arr[i]=pv.arr[i];
-    }
 }
 
 PointArray::~PointArray(){
@@ -170,36 +165,36 @@ const Point* PointArray::get(const int position) const{
     return & (this->arr[position]);
 }
 
-/*
+
 Polygon::Polygon(const Point points [], const int length) {
 
     if(length < 3){
         throw invalid_argument("too few points to create a polygon!");
     }
 
-    arr = new PointArray(points,length);
+    this->points = new PointArray(points,length);
 
-    this->npolygons += 1;
+    Polygon::npolygons += 1;
 }
 
 Polygon::Polygon(const PointArray& iarr){
     if(iarr.get_size() < 3){
         throw invalid_argument("too few points to create a polygon!");
     }
-    this->arr = &iarr;
+    this->points = &iarr;
     Polygon::npolygons += 1;
 }
 
 Polygon::Polygon(const Polygon &pol){
-    this->arr = new PointArray(*pol.arr);
+    this->points = new PointArray(*pol.points);
     Polygon::npolygons += 1;
 }
 
 
 Polygon::~Polygon(){
     //aggiungere cose
-    delete [] this->arr;
-    this->npolygons -= 1;
+    delete [] this->points;
+    Polygon::npolygons -= 1;
 }
 
 
@@ -208,11 +203,23 @@ int Polygon::getNumPolygons(){
 }
 
 int Polygon::getNumSlides() const{
-    this->arr->get_size();
+    this->points->get_size();
 }
 
 const PointArray* Polygon::getPoints() const{
-    return this->arr;
+    return this->points;
 }
 
-*/
+Point constructorPoints [4];
+Point* updateConstructorPoints(const Point &p1, const Point &p2, const Point &p3, const Point &p4){
+   constructorPoints [0] = p1;
+   constructorPoints [1] = p2;
+   constructorPoints [2] = p3;
+   constructorPoints [3] = p4;
+ 
+   return constructorPoints ;
+}
+
+Rectangle::Rectangle(int xlowleft, int ylowleft, int xupright, int yupright)
+    :Polygon(updateConstructorPoints(Point(xlowleft,ylowleft),Point(xlowleft,yupright),Point(xupright,yupright),Point(xupright,ylowleft)),4){
+}

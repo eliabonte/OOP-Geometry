@@ -145,11 +145,11 @@ class PointArray {
         
 };    
 
-/*
+
 class Polygon{
     protected:
-        const PointArray* arr;
-        static unsigned int npolygons;
+        const PointArray* points;
+        static int npolygons;
 
         Polygon(const Point points [], const int length);    
 
@@ -161,16 +161,25 @@ class Polygon{
 
         ~Polygon(); 
 
-        virtual double area() const = 0;
+        virtual double area() = 0;
 
         static int getNumPolygons();
 
         int getNumSlides() const;
 
-        const PointArray* getPoints() const;
+        const PointArray* getPoints() const; 
+};
+int Polygon::npolygons = 0;
+
+Point * updateConstructorPoints ( const Point & p1 , const Point & p2, const Point & p3 , const Point & p4 = Point (0 ,0) );
+
+
+class Rectangle: public Polygon{
+    private:
+        Rectangle(int x1,int y1,int x2,int y2);
+    public:
+        virtual double area();
 };
 
-unsigned int Polygon::npolygons = 0;
 
-*/
 #endif // GEOMETRY_H

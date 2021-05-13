@@ -158,6 +158,7 @@ TEST_CASE("function get_size, get the size of the array","[PointArray]"){
         REQUIRE(pa.get_size() == 1);
 }
 
+/*
 TEST_CASE("function clear, remove everything from the array and sets its size to 0","[PointArray]"){
         PointArray pa;
         pa.push_back(Point(1,1));
@@ -166,4 +167,15 @@ TEST_CASE("function clear, remove everything from the array and sets its size to
 
         REQUIRE(pa.get_size() == 0);
         REQUIRE(pa.get(0) == NULL);
+}
+*/
+
+TEST_CASE("function get, get a pointer to the element at some arbitrary position in the array","[PointArray]"){
+        PointArray pa;
+        pa.push_back(Point(1,1));
+
+        Point* p1 = pa.get(0);
+
+        REQUIRE(p1->get_x() == 1);
+        REQUIRE(p1->get_y() == 1);  
 }
