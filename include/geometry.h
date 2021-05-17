@@ -65,6 +65,7 @@ class PointArray {
         Point* arr;
         int length;
 
+    protected:
         /**
          * allocates a new array of size n
          * Negative size should throw std::invalid_argument
@@ -145,40 +146,50 @@ class PointArray {
         
 };    
 
-
 class Polygon{
     protected:
         const PointArray* points;
         static int npolygons;
 
-        Polygon(const Point points [], const int length);    
-
-        Polygon(const PointArray& iarr);
-
-        Polygon(const Polygon &pol);
+        static Point constructorPoints [4];
+        static Point * updateConstructorPoints ( const Point & p1 , const Point & p2, const Point & p3 , const Point & p4 = Point (0 ,0) );
     
     public:
 
+        Polygon(const Point points [], const int length);    
+
+        Polygon(const PointArray* iarr);
+
+        Polygon(const Polygon &pol);
+
         ~Polygon(); 
 
-        virtual double area() = 0;
+        virtual double area() const = 0;
 
         static int getNumPolygons();
 
-        int getNumSlides() const;
+        int getNumSides() const;
 
         const PointArray* getPoints() const; 
 };
-int Polygon::npolygons = 0;
-
-Point * updateConstructorPoints ( const Point & p1 , const Point & p2, const Point & p3 , const Point & p4 = Point (0 ,0) );
 
 
 class Rectangle: public Polygon{
-    private:
-        Rectangle(int x1,int y1,int x2,int y2);
+   
     public:
-        virtual double area();
+        Rectangle(const Point low_left, const Point up_right);
+             
+        Rectangle(const int x1, const int y1, const int x2, const int y2);
+
+        virtual double area() const;
+};
+
+class Triangle: public Polygon{
+   
+    public:
+        Triangle(const Point low_left, const Point low_right, const Point up);
+
+        virtual double area() const;
 };
 
 

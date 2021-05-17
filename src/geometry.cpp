@@ -2,20 +2,11 @@
 #include "geometry.h"
 #include <cmath>
 #include <stdexcept> 
-#include "iostream"
+#include <iostream>
 
 using namespace std;    
 
-Point::Point(int x , int y ){
-    if(x!=0 && y!=0){
-        this->x=x;
-        this->y=y;
-    }
-    else{
-        this->x=0;
-        this->y=0;
-    }
-}
+Point::Point(int x , int y ): x(x), y(y) {};
                             
 int Point::get_x() const{
     return this->x;
@@ -165,6 +156,23 @@ const Point* PointArray::get(const int position) const{
     return & (this->arr[position]);
 }
 
+/**
+ * polygon
+*/
+
+int Polygon::npolygons = 0;
+Point Polygon::constructorPoints[4];
+
+
+Point*  Polygon::updateConstructorPoints(const Point &p1, const Point &p2, const Point &p3, const Point &p4){
+   Polygon::constructorPoints [0] = p1;
+   Polygon::constructorPoints [1] = p2;
+   Polygon::constructorPoints [2] = p3;
+   Polygon::constructorPoints [3] = p4;
+ 
+   return Polygon::constructorPoints ;
+}
+
 
 Polygon::Polygon(const Point points [], const int length) {
 
@@ -177,11 +185,10 @@ Polygon::Polygon(const Point points [], const int length) {
     Polygon::npolygons += 1;
 }
 
-Polygon::Polygon(const PointArray& iarr){
-    if(iarr.get_size() < 3){
+Polygon::Polygon(const PointArray* iarr):points(iarr){
+    if(iarr->get_size() < 3){
         throw invalid_argument("too few points to create a polygon!");
     }
-    this->points = &iarr;
     Polygon::npolygons += 1;
 }
 
@@ -192,8 +199,8 @@ Polygon::Polygon(const Polygon &pol){
 
 
 Polygon::~Polygon(){
-    //aggiungere cose
-    delete [] this->points;
+    cout << "DEBUG: destroying polygon" << endl;
+    delete this->points;
     Polygon::npolygons -= 1;
 }
 
@@ -202,7 +209,7 @@ int Polygon::getNumPolygons(){
     return Polygon::npolygons;
 }
 
-int Polygon::getNumSlides() const{
+int Polygon::getNumSides() const{
     this->points->get_size();
 }
 
@@ -210,16 +217,66 @@ const PointArray* Polygon::getPoints() const{
     return this->points;
 }
 
-Point constructorPoints [4];
-Point* updateConstructorPoints(const Point &p1, const Point &p2, const Point &p3, const Point &p4){
-   constructorPoints [0] = p1;
-   constructorPoints [1] = p2;
-   constructorPoints [2] = p3;
-   constructorPoints [3] = p4;
- 
-   return constructorPoints ;
+Rectangle::Rectangle(const Point low_left, const Point up_right):Polygon{
+    Polygon::updateConstructorPoints(
+        low_left,
+        Point(low_left.get_x(),up_right.get_y()),
+        up_right,
+        Point(up_right.get_x(),low_left.get_y())
+        ),
+        4}{
+            
+    cout << "Rectangle(low_left,up_right) constructor" << endl;
 }
 
-Rectangle::Rectangle(int xlowleft, int ylowleft, int xupright, int yupright)
-    :Polygon(updateConstructorPoints(Point(xlowleft,ylowleft),Point(xlowleft,yupright),Point(xupright,yupright),Point(xupright,ylowleft)),4){
+
+Rectangle::Rectangle(const int xlowleft,const int ylowleft, const int xupright, const int yupright):Polygon{
+    Polygon::updateConstructorPoints(
+        Point(xlowleft,ylowleft),
+        Point(xlowleft,yupright),
+        Point(xupright,yupright),
+        Point(xupright,ylowleft)
+        ),
+        4}{
+            
+    cout << "Rectangle(x1,y1,x2,y2) constructor" << endl;
 }
+
+double Rectangle::area() const{
+
+    int width = abs(this->points->get(0)->get_x() - this->points->get(2)->get_x());
+    int height = abs(this->points->get(0)->get_y() - this->points->get(1)->get_y());
+
+    return width*height;
+}
+
+Triangle::Triangle(const Point low_left, const Point low_right, const Point up):Polygon{
+    Polygon::updateConstructorPoints(
+        low_left,
+        low_right,
+        up),
+        3}{
+            
+    cout << "Triangle constructor" << endl;
+}
+
+double Triangle::area() const{
+
+    double a,b,c,s,K;
+    double x1 = this->points->get(0)->get_x();
+    double y1 = this->points->get(0)->get_y();
+    double x2 = this->points->get(1)->get_x();
+    double y2 = this->points->get(1)->get_y();
+    double x3 = this->points->get(2)->get_x();
+    double y3 = this->points->get(2)->get_y();
+
+    a = sqrt(pow((x3-x1),2) + pow((y3-y1),2));
+    b = sqrt(pow((x2-x1),2) + pow((y2-y1),2));
+    c = sqrt(pow((x3-x2),2) + pow((y3-y2),2));
+
+    s =  (a+b+c)/2;
+    K = sqrt( s*(s - a)*(s - b)*(s - c));
+
+    return K;
+}
+
